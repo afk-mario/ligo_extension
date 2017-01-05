@@ -1,0 +1,51 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    background: white;
+    color: black;
+    border: none;
+    box-shadow: none;
+}
+
+*:focus{
+    border: none;
+    box-shadow: none;
+    outline: none;
+}
+
+body, html{
+    font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+    font-size: 100%;
+    width: 200px;
+    height: auto;
+}
+
+form{
+    padding: 10px;
+}
+
+input{
+    width: 100%;
+    display: block;
+    border-bottom: 1px solid #313131;
+    margin: 10px auto 10px auto;
+    padding: 2px;
+    transition: background-color 0.2s ease;
+}
+
+input:focus, input:hover{
+    border-bottom: 1px solid black;
+}
+
+input[type="submit"]{
+    border: 1px solid black;
+    background: #313131;
+    color: white;
+    padding: 4px;
+}
+
+
+input[type="submit"]:hover{
+    background: black;
+}
