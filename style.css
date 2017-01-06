@@ -38,7 +38,7 @@ input:focus, input:hover{
     border-bottom: 1px solid black;
 }
 
-input[type="submit"]{
+input[type="submit"], input[type="button"]{
     border: 1px solid black;
     background: #313131;
     color: white;
