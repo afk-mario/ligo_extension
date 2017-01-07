@@ -6,10 +6,20 @@
         <script src="script.js"></script>
     </head>
     <body>
-        <form action="">
+        <div class="title wrapper">
+            <span>ligoj</span>
+        </div>
+        <div class="reset wrapper">
+            <a id="reset-token" class="button">reset token</a>
+        </div>
+        <form id="submitLinkForm" action="">
             <input id="url" placeholder="url" type="url" />
             <input id="tags" placeholder="tags" type="text" />
-            <input id="submitLink" type="button" value="save"/>
+            <input id="submitLink" class="button" type="button" value="save"/>
+        </form>
+        <form id="submitTokenForm" class="hidden" action="">
+            <input id="token" placeholder="token" type="text" />
+            <input id="submitToken" class="button" type="button" value="save"/>
         </form>
     </body>
 </html>
