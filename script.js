@@ -30,7 +30,7 @@ function submitLink(){
         mode: 'cors',
         headers: new Headers({
             'Content-Type': 'application/json',
-            'Authorization': 'Token TOKEN'
+            'Authorization': 'Token '
         }),
         body: JSON.stringify({
             link: document.getElementById('url').value,
