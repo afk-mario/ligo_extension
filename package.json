@@ -1,0 +1,33 @@
+{
+  "name": "ligoj.afk",
+  "version": "1.0.0",
+  "description": "Ligoj Browser Extension",
+  "main": "script.js",
+  "scripts": {
+    "test": "eslint script.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Arlefreak/ligoj_extension.git"
+  },
+  "keywords": [
+    "extension",
+    "arlefreak",
+    "afk",
+    "ligoj",
+    "link"
+  ],
+  "author": "Arlefreak",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Arlefreak/ligoj_extension/issues"
+  },
+  "homepage": "https://github.com/Arlefreak/ligoj_extension#readme",
+  "devDependencies": {
+    "eslint": "^3.13.1",
+    "eslint-config-airbnb": "^14.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^3.0.2",
+    "eslint-plugin-react": "^6.9.0"
+  }
+}
