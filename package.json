@@ -2,9 +2,9 @@
   "name": "ligoj.afk",
   "version": "1.0.0",
   "description": "Ligoj Browser Extension",
-  "main": "script.js",
+  "main": "js/script.js",
   "scripts": {
-    "test": "eslint script.js"
+    "test": "eslint js/*"
   },
   "repository": {
     "type": "git",
