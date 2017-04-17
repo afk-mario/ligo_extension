@@ -102,4 +102,7 @@ jspm_packages
 *.tgz
 
 # Yarn Integrity file
-.yarn-integrity
+.yarn-integrityA
+
+.web-ext-artifacts
+key.pem
