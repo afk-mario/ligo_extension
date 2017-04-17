@@ -4,7 +4,8 @@
   "description": "Ligoj Browser Extension",
   "main": "js/script.js",
   "scripts": {
-    "test": "eslint js/*"
+    "test": "eslint js/*",
+    "build": "crx pack src -o ligoj.crx"
   },
   "repository": {
     "type": "git",
@@ -24,7 +25,8 @@
   },
   "homepage": "https://github.com/Arlefreak/ligoj_extension#readme",
   "devDependencies": {
-    "eslint": "^3.13.1",
+    "crx": "^3.2.1",
+    "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.0.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^3.0.2",
