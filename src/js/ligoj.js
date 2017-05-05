@@ -104,7 +104,7 @@ class Ligoj {
       Authorization: tokenHeader,
     });
 
-    const request = new Request('https://api.arlefreak.com/ligoj/link/', {
+    const request = new Request('https://api.ellugar.co/ligoj/link/', {
       method: 'POST',
       redirect: 'follow',
       mode: 'cors',
