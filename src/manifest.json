@@ -4,19 +4,16 @@
     "description": "Ligo.afk extension",
     "version": "1.0",
     "icons": {
-        "16": "img/16icon.png",
-        "19": "img/19icon.png",
-        "38": "img/38icon.png",
-        "48": "img/48icon.png",
-        "128": "img/128icon.png",
-        "256": "img/256icon.png",
-        "512": "img/512icon.png"
+        "16": "img/16icon_dark.png",
+        "19": "img/19icon_dark.png",
+        "38": "img/38icon_dark.png",
+        "48": "img/48icon_dark.png",
+        "128": "img/128icon_dark.png",
+        "256": "img/256icon_dark.png",
+        "512": "img/512icon_dark.png"
     },
     "browser_action": {
-        "default_icon": {
-            "19": "img/19icon.png",
-            "38": "img/38icon.png"
-        },
+        "default_icon": "img/512icon_light.svg",
         "default_popup": "popup.html"
     },
 
