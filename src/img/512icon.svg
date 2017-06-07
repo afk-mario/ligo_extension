@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512px" height="512px" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>512icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="512icon" fill="#000000">
+            <g id="Ligo">
+                <circle id="center" cx="256" cy="256" r="51.2"></circle>
+                <g id="Out" stroke-width="1" transform="translate(255.716036, 256.004457) rotate(-315.000000) translate(-255.716036, -256.004457) translate(74.468036, 2.308457)">
+                    <polygon id="Bottom" transform="translate(181.445642, 398.307524) scale(-1, -1) translate(-181.445642, -398.307524) " points="87.3155868 376.585204 87.3155868 506.919126 0.426305532 506.919126 0.426305532 362.103657 72.8340399 289.695922 290.057243 289.695922 362.464977 362.103657 362.464977 506.919126 275.575696 506.919126 274.601367 378.061095"></polygon>
+                    <polygon id="Top" transform="translate(181.445642, 108.676622) scale(-1, 1) translate(-181.445642, -108.676622) " points="87.3155868 86.9542662 87.3155868 217.288188 0.426305532 217.288188 0.426588525 72.4730023 72.8343229 0.065267898 290.057314 0.0650556534 362.464701 72.4729959 362.464977 217.288188 275.575696 217.288188 275.575696 86.9542662"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

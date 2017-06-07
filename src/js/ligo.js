@@ -1,10 +1,10 @@
-const LigojState = {
+const LigoState = {
   TOKEN: 0,
   LINK: 1,
   RESPONSE: 2,
 };
 
-class Ligoj {
+class Ligo {
   constructor(url) {
     this.url = url;
     this.token = localStorage.getItem('token.afk');
@@ -26,12 +26,12 @@ class Ligoj {
     this.setEvents();
 
     if (this.token) {
-      this.updateState(LigojState.LINK);
+      this.updateState(LigoState.LINK);
       this.bttSubmitLink.addEventListener('click', () => {
         this.submitLink();
       });
     } else {
-      this.updateState(LigojState.TOKEN);
+      this.updateState(LigoState.TOKEN);
       this.bttSubmitToken.addEventListener('click', () => {
         this.submitToken();
       });
@@ -44,13 +44,13 @@ class Ligoj {
     this.sectResponse.className = 'hidden';
 
     switch (this.state) {
-      case LigojState.TOKEN:
+      case LigoState.TOKEN:
         this.frmSubmitToken.className = '';
         break;
-      case LigojState.LINK:
+      case LigoState.LINK:
         this.frmSubmitLink.className = '';
         break;
-      case LigojState.RESPONSE:
+      case LigoState.RESPONSE:
         this.sectResponse.className = '';
         break;
       default:
@@ -75,7 +75,7 @@ class Ligoj {
 
   setValues() {
     this.fldUrl.value = this.url;
-    this.state = LigojState.TOKEN;
+    this.state = LigoState.TOKEN;
   }
 
   setEvents() {
@@ -104,7 +104,7 @@ class Ligoj {
       Authorization: tokenHeader,
     });
 
-    const request = new Request('https://api.ellugar.co/ligoj/link/', {
+    const request = new Request('https://api.ellugar.co/ligo/link/', {
       method: 'POST',
       redirect: 'follow',
       mode: 'cors',
@@ -115,7 +115,7 @@ class Ligoj {
       }),
     });
 
-    this.updateState(LigojState.RESPONSE);
+    this.updateState(LigoState.RESPONSE);
 
     fetch(request).then((res) => {
       this.updateResponse(res);

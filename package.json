@@ -1,30 +1,28 @@
 {
-  "name": "ligoj.afk",
+  "name": "ligo.afk",
   "version": "1.0.0",
-  "description": "Ligoj Browser Extension",
+  "description": "ligo Browser Extension",
   "main": "js/script.js",
   "scripts": {
-    "test": "eslint js/*",
-    "build": "crx pack src -o build/ligoj.crx && web-ext build -s src -a build",
-    "build-fox": "web-ext sign -s src -a build --id 'ligoj@arlefreak.com'"
+    "start": "web-ext run -s src --browser-console -p default",
+    "test": "eslint js/* && web-ext lint -s src",
+    "build:chrome": "crx pack src -o build/ligo.crx && web-ext build -s src -a build",
+    "build:fox": "dotenv web-ext sign -s src --api-key=$WEB_EXT_API_KEY --api-secret=$WEB_EXT_API_SECRET --id=$WEB_EXT_ID"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Arlefreak/ligoj_extension.git"
-  },
+  "repository": "git+https://github.com/Arlefreak/ligo_extension.git",
   "keywords": [
     "extension",
     "arlefreak",
     "afk",
-    "ligoj",
+    "ligo",
     "link"
   ],
-  "author": "Arlefreak",
+  "author": "AFK",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Arlefreak/ligoj_extension/issues"
+    "url": "https://github.com/Arlefreak/ligo_extension/issues"
   },
-  "homepage": "https://github.com/Arlefreak/ligoj_extension#readme",
+  "homepage": "https://github.com/Arlefreak/ligo_extension#readme",
   "devDependencies": {
     "archiver": "^1.3.0",
     "crx": "^3.2.1",
@@ -35,6 +33,8 @@
     "eslint-plugin-react": "^6.9.0"
   },
   "dependencies": {
-    "archiver": "^1.3.0"
+    "archiver": "^1.3.0",
+    "dotenv": "^4.0.0",
+    "is": "^3.2.1"
   }
 }

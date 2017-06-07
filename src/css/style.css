@@ -50,7 +50,7 @@ header, section{
 input, a, span{
   width: 100%;
   display: block;
-  border-bottom: 1px solid #313131;
+  border-bottom: 2px solid #313131;
   padding: 2px;
   transition: background-color 0.2s ease;
   text-decoration: none;
@@ -68,11 +68,11 @@ input{
 }
 
 input:focus, input:hover, a:focus, a:hover{
-  border-bottom: 1px solid black;
+  border-bottom: 2px solid black;
 }
 
 .button{
-  border: 1px solid black;
+  border: 2px solid black;
   background: #444444;
   color: white;
   padding: 4px;
@@ -101,6 +101,6 @@ a.button:hover{
 #response{
   width: 90%;
   margin: 0 auto 10px auto;
-  border: 1px solid black;
+  border: 2px solid black;
   text-align: center;
 }

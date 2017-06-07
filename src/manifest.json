@@ -1,16 +1,16 @@
 {
     "manifest_version": 2,
-    "name": "Ligoj.afk",
-    "description": "Ligoj.afk extension",
+    "name": "Ligo.afk",
+    "description": "Ligo.afk extension",
     "version": "1.0",
-    "icons": { 
+    "icons": {
         "16": "img/16icon.png",
         "19": "img/19icon.png",
         "38": "img/38icon.png",
         "48": "img/48icon.png",
         "128": "img/128icon.png",
         "256": "img/256icon.png",
-        "512": "img/512icon.png" 
+        "512": "img/512icon.png"
     },
     "browser_action": {
         "default_icon": {
