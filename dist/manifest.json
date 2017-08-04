@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "Ligo.afk",
     "description": "Ligo.afk extension",
-    "version": "1.0",
+    "version": "2.0",
     "icons": {
         "16": "img/16icon_dark.png",
         "19": "img/19icon_dark.png",

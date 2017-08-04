@@ -1,10 +1,10 @@
-function parseTags(_tags) {
+export function parseTags(_tags) {
   const tags = _tags.split(',');
   tags.push('fromChrome');
   return tags;
 }
 
-function getCurrentTabUrl(callback) {
+export function getCurrentTabUrl(callback) {
   // https://developer.chrome.com/extensions/tabs#method-query
   const queryInfo = {
     active: true,

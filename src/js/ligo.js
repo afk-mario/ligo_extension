@@ -1,10 +1,12 @@
+import { parseTags } from './misc';
+
 const LigoState = {
   TOKEN: 0,
   LINK: 1,
   RESPONSE: 2,
 };
 
-class Ligo {
+export default class Ligo {
   constructor(url) {
     this.url = url;
     this.token = localStorage.getItem('token.afk');
@@ -64,6 +66,7 @@ class Ligo {
     } else {
       this.pResTitle.innerHTML = 'Failed';
     }
+    console.log(res);
     this.pResBody.innerHTML = res.statusText;
   }
 
@@ -87,7 +90,7 @@ class Ligo {
     this.reset();
   }
 
-  static reset() {
+  reset() {
     location.reload(true);
   }
 
@@ -104,7 +107,7 @@ class Ligo {
       Authorization: tokenHeader,
     });
 
-    const request = new Request('https://api.ellugar.co/ligo/link/', {
+    const request = new Request('https://api.ellugar.co/ligoj/link/', {
       method: 'POST',
       redirect: 'follow',
       mode: 'cors',

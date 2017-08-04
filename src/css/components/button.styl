@@ -1,0 +1,23 @@
+.button
+  border 2px solid $black
+  padding 5px
+  text-align center
+  cursor pointer
+  display block
+  transition background 0.2s ease
+
+.button&.white
+  color $black
+  background $white
+  border-color $black
+  &:hover
+    background-color $black
+    color $white
+
+.button&.black
+  color $white
+  background $black
+  border-color $white
+  &:hover
+    background-color $white
+    color $black
