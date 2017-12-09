@@ -1,25 +1,21 @@
 {
   "name": "ligo.afk",
-  "version": "1.0.0",
+  "version": "3.0.0",
   "description": "ligo Browser Extension",
   "main": "js/script.js",
   "scripts": {
-    "start:fox": "web-ext run -s dist --browser-console -p default --firefox=/Applications/FirefoxDeveloperEdition.app/Contents/MacOS/firefox-bin",
+    "start:fox":
+      "web-ext run -s dist --browser-console -p default --firefox=/Applications/FirefoxDeveloperEdition.app/Contents/MacOS/firefox-bin",
     "test": "eslint js/* && web-ext lint -s dist",
-    "build:chrome": "crx pack dist -o build/ligo.crx && web-ext build -s dist -a build",
-    "build:fox": "web-ext build -s dist",
+    "build:chrome":
+      "crx pack dist -o build/ligo.crx && web-ext build -s dist -a build",
+    "build:fox": "web-ext build -s dist --overwrite-dest",
     "build:dev": "webpack --watch --progress",
     "build:prod": "webpack -p",
     "precommit": "lint-staged"
   },
   "repository": "git+https://github.com/Arlefreak/ligo_extension.git",
-  "keywords": [
-    "extension",
-    "arlefreak",
-    "afk",
-    "ligo",
-    "link"
-  ],
+  "keywords": ["extension", "arlefreak", "afk", "ligo", "link"],
   "author": "AFK",
   "license": "MIT",
   "bugs": {

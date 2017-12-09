@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Ligo.afk",
   "description": "Ligo.afk extension",
-  "version": "2.0",
+  "version": "3.0",
   "icons": {
     "16": "img/16icon_dark.png",
     "19": "img/19icon_dark.png",
@@ -19,9 +19,5 @@
   "options_ui": {
     "page": "options.html"
   },
-  "permissions": [
-    "activeTab",
-    "storage",
-    "https://ajax.googleapis.com/"
-  ]
+  "permissions": ["activeTab", "storage", "https://ajax.googleapis.com/"]
 }
