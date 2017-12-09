@@ -1,6 +1,6 @@
 export function parseTags(_tags) {
   const tags = _tags.split(',');
-  tags.push('fromChrome');
+  tags.push('fromBrowser');
   return tags;
 }
 
@@ -11,9 +11,9 @@ export function getCurrentTabUrl(callback) {
     currentWindow: true,
   };
 
-  chrome.tabs.query(queryInfo, (tabs) => {
+  chrome.tabs.query(queryInfo, tabs => {
     const tab = tabs[0];
-    const url = tab.url;
+    const { url } = tab;
     // console.assert(typeof url == 'string', 'tab.url should be a string');
     callback(url);
   });

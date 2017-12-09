@@ -2,42 +2,25 @@
 <html>
   <head>
     <title>ligo.afk</title>
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet" type="text/css">
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <script src="ligo.js"></script>
   </head>
   <body>
-    <header id="header">
-      <div class="wrapper">
-        <div>
-          <h1>Ligo</h1>
+      <section id="response" class="">
+        <div class="wrapper">
+          <p id="response-title"> Waiting response </p>
+          <p id="response-body"> ... </p>
         </div>
-        <div>
-          <a id="reset-token" class="button black">reset token</a>
+      </section>
+      <section id="submit-token">
+        <div class="wrapper">
+          <form id="submitTokenForm" action="">
+            <input id="token" placeholder="token" type="text" />
+            <input id="submitToken" class="button white" type="button" value="save"/>
+          </form>
         </div>
-      </div>
-    </header>
-    <section id="response" class="">
-      <div class="wrapper">
-        <p id="response-title"> Waiting response </p>
-        <p id="response-body"> ... </p>
-      </div>
-    </section>
-    <section id="submit">
-      <div class="wrapper">
-        <form id="submitLinkForm" action="">
-          <input id="url" placeholder="url" type="url" />
-          <input id="tags" placeholder="tags" type="text" />
-          <input id="submitLink" class="button white" type="button" value="save"/>
-        </form>
-      </div>
-    </section>
-    <section id="submit-token">
-      <div class="wrapper">
-        <form id="submitTokenForm" action="">
-          <input id="token" placeholder="token" type="text" />
-          <input id="submitToken" class="button white" type="button" value="save"/>
-        </form>
-      </div>
-    </section>
-  </body>
-  <script src="bundle.js"></script>
+      </section>
+    </body>
 </html>

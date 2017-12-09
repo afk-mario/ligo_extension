@@ -1,17 +1,16 @@
 module.exports = {
-  "extends": "airbnb",
-  "globals":{
-    "document": true,
-    "localStorage": true,
-    "chrome": true,
-    "fetch": true,
-    "Request": true,
-    "Headers": true,
-    "location": true,
+  extends: ['airbnb', 'prettier'],
+  rules: {
+    'no-console': 0,
   },
-  "plugins": [
-    "react",
-    "jsx-a11y",
-    "import"
-  ]
+  globals: {
+    browser: true,
+    document: true,
+    localStorage: true,
+    chrome: true,
+    fetch: true,
+    Request: true,
+    Headers: true,
+    location: true,
+  },
 };

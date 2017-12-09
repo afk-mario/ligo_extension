@@ -1,33 +1,40 @@
 const path = require('path');
-const nib = require('nib');
 
 module.exports = {
   devtool: 'cheap-module-source-map',
-  entry: './src/js/index.js',
+  entry: { ligo: './src/ligo.js', options: './src/options.js' },
   output: {
-    filename: 'bundle.js',
+    filename: '[name].js',
     path: path.resolve(__dirname, 'dist/'),
     sourceMapFilename: '[name].map',
   },
   module: {
     rules: [
       {
-        test: /\.styl$/,
+        test: /\.css$/,
+        exclude: /node_modules/,
         use: [
-          'style-loader',
-          'css-loader',
           {
-            loader: 'stylus-loader',
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
             options: {
-              use: [nib()],
-              import: ['~nib/lib/nib/index.styl'],
+              importLoaders: 1,
             },
+          },
+          {
+            loader: 'postcss-loader',
           },
         ],
       },
-    ],
-    loaders: [
-      { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
+      {
+        test: /\.js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+        },
+      },
     ],
   },
 };

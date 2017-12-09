@@ -1,12 +1,10 @@
 {
-    "presets":[
-        "es2015",
-        "stage-2",
-    ],
-    "compact" : false,
-    "env": {
-        "production": {
-            "plugins": ["transform-react-remove-prop-types"]
-        }
+  "presets":[ "react", "env" ],
+  "plugins": ["transform-object-rest-spread"],
+  "compact" : false,
+  "env": {
+    "production": {
+      "plugins": [ "transform-react-remove-prop-types" ]
     }
+  }
 }
