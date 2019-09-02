@@ -1,15 +1,21 @@
 * {
   box-sizing: border-box;
   font-family: var(--font);
+  scrollbar-color: var(--medium-gray) var(--black);
+  scrollbar-width: thin;
 }
 
 html,
 body {
   margin: 0;
   padding: 0;
-  min-width: 250px;
+  min-width: var(--popup-width);
   background: var(--dark-gray);
   color: var(--light-gray);
+  overflow-x: hidden;
+
+  max-width: var(--popup-width);
+  max-height: var(--popup-height);
 }
 
 h1 {
@@ -17,4 +23,21 @@ h1 {
   font-weight: 100;
   margin: 0;
   padding: 0;
+}
+
+h2 {
+  font-size: 1em;
+  font-weight: 100;
+  margin: 0;
+  padding: 0;
+}
+
+.wrapper {
+  margin: auto;
+  width: var(--popup-width);
+  width: 100%;
+}
+
+main {
+  padding-bottom: var(--footer-height);
 }
