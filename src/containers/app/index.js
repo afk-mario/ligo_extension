@@ -4,6 +4,7 @@ import './style.css';
 
 import { parseTags } from '../../lib/misc';
 import Header from '../../components/header';
+import Footer from '../../components/footer';
 import Message from '../../components/message';
 import Ligo from '../add';
 
@@ -51,8 +52,7 @@ export default function app(state, emit) {
 
   return html`
     <body>
-      ${Header()}
-      ${content}
+      ${Header()} ${content} ${Footer()}
     </body>
   `;
 }

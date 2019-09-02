@@ -6,6 +6,9 @@
   "scripts": {
     "start": "web-ext run",
     "start:macos": "web-ext run -p default --firefox=/Applications/FirefoxDeveloperEdition.app/Contents/MacOS/firefox-bin",
+    "lint": "eslint 'src/**/*.js'",
+    "lint:fix": "eslint --fix 'src/**/*.js'",
+    "lint:format": "prettier --write 'src/**/*.js'",
     "test": "eslint js/* && web-ext lint -s dist",
     "build:chrome": "crx pack dist -o build/ligo.crx && web-ext build -s dist -a build",
     "build:fox": "web-ext build -s dist --overwrite-dest",
@@ -46,6 +49,7 @@
     "crx": "^5.0.1",
     "eslint": "^6.3.0",
     "eslint-config-airbnb": "^18.0.1",
+    "eslint-import-resolver-webpack": "^0.11.1",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.14.3",
