@@ -1,8 +1,8 @@
 {
   "applications": {
     "gecko": {
-      "id": "ligo@ellugar.co",
-      "strict_min_version": "42.0"
+      "id": "{62227845-fcc9-4a7d-88ef-579af1ead3d7}",
+      "strict_min_version": "70.0"
     }
   },
   "manifest_version": 2,
