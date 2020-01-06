@@ -14,8 +14,7 @@
     "build:chrome": "crx pack dist -o build/ligo.crx && web-ext build -s dist -a build",
     "build:fox": "web-ext build -s dist --overwrite-dest",
     "build:dev": "webpack-dev-server --watch --progress --mode=development",
-    "build:prod": "webpack -p",
-    "precommit": "lint-staged"
+    "build:prod": "webpack -p"
   },
   "repository": "git+https://github.com/Arlefreak/ligo_extension.git",
   "keywords": [
@@ -82,5 +81,10 @@
     "web-ext": "^4.0.0",
     "webpack": "^4.41.5"
   },
-  "peerDependencies": {}
+  "peerDependencies": {},
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
 }
