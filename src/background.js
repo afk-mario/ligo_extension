@@ -1,4 +1,5 @@
 import { getCurrentTabUrl } from '~lib/misc';
+import { API_URL } from '~lib/constants';
 
 function clearBadge() {
   browser.browserAction.setBadgeText({ text: '' });
@@ -11,9 +12,7 @@ function setBadge(n) {
 }
 
 function getLigoCount(link) {
-  const url = `https://api.ellugar.co/ligoj/link/?link=${encodeURIComponent(
-    link
-  )}`;
+  const url = `${API_URL}/ligoj/link/?link=${encodeURIComponent(link)}`;
 
   const request = new Request(url, {
     method: 'GET',

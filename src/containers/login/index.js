@@ -5,7 +5,6 @@ const Login = onSubmit => {
   return html`
     <form id="login" onsubmit=${onSubmit}>
       <input
-        value="arlefreak"
         id="username"
         name="username"
         placeholder="afk"
@@ -13,7 +12,6 @@ const Login = onSubmit => {
         required
       />
       <input
-        value="mytholog-ott-stinkpot-lemming-farrago"
         id="password"
         name="password"
         type="password"

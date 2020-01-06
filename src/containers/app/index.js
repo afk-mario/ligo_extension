@@ -1,4 +1,5 @@
 import html from 'choo/html';
+import { API_URL } from '~lib/constants';
 import './variables.css';
 import './style.css';
 
@@ -32,7 +33,7 @@ const App = (state, emit) => {
       'Content-Type': 'application/json',
     });
 
-    const request = new Request('https://api.ellugar.co/token/', {
+    const request = new Request(`${API_URL}/token/`, {
       method: 'POST',
       redirect: 'follow',
       mode: 'cors',
@@ -60,21 +61,18 @@ const App = (state, emit) => {
     const form = e.currentTarget;
     const data = new FormData(form);
     const parsed = formDataToObject(data);
-    console.log('parsed', parsed);
     const tags = parseTags(parsed.tags);
     const body = JSON.stringify({
       ...parsed,
       tags,
     });
 
-    console.log('Add Link', user.access);
-
     const headers = new Headers({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${user.access}`,
     });
 
-    const request = new Request('https://api.ellugar.co/ligoj/link/', {
+    const request = new Request(`${API_URL}/ligoj/link/`, {
       method: 'POST',
       redirect: 'follow',
       mode: 'cors',

@@ -16,7 +16,6 @@
   color: currentcolor;
   transition: color 0.2s ease;
   width: 20px;
-  margin-right: var(--half-margin);
 }
 
 #header a:first-child {

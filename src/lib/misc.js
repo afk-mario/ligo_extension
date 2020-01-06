@@ -3,6 +3,13 @@
 // const chrome = chrome || null;
 // /* eslint-enable */
 
+import {
+  TOKEN_STATUS_VALID,
+  TOKEN_STATUS_REFRESH,
+  TOKEN_STATUS_INVALID,
+  API_URL,
+} from '~lib/constants';
+
 export function parseTags(_tags) {
   if (_tags == null) return [];
   const tags = _tags.split(',').filter(Boolean);
@@ -77,13 +84,12 @@ export function removeOptions(arr) {
 }
 
 export async function verifyToken(token) {
-  console.log('verifyToken', token);
   const headers = new Headers({
     'Content-Type': 'application/json',
   });
 
   const body = JSON.stringify({ token });
-  const request = new Request('https://api.ellugar.co/token/verify/', {
+  const request = new Request(`${API_URL}/token/verify/`, {
     method: 'POST',
     redirect: 'follow',
     mode: 'cors',
@@ -92,7 +98,14 @@ export async function verifyToken(token) {
   });
 
   const res = await fetch(request);
-  return res.json();
+  const verify = await res.json();
+  if (Object.keys(verify).length === 0) return TOKEN_STATUS_VALID;
+  if (
+    {}.hasOwnProperty.call(verify, 'code') &&
+    verify.code === 'token_not_valid'
+  )
+    return TOKEN_STATUS_REFRESH;
+  return TOKEN_STATUS_INVALID;
 }
 
 export async function refreshToken(refresh) {
@@ -101,7 +114,7 @@ export async function refreshToken(refresh) {
   });
 
   const body = JSON.stringify({ refresh });
-  const request = new Request('https://api.ellugar.co/token/refresh/', {
+  const request = new Request(`${API_URL}/token/refresh/`, {
     method: 'POST',
     redirect: 'follow',
     mode: 'cors',
@@ -114,25 +127,29 @@ export async function refreshToken(refresh) {
 }
 
 export async function restoreOptions(emitter) {
-  console.log('restoring options...');
   try {
-    const data = await getOptions(['access', 'refresh']);
-    const { access, refresh } = data;
+    const options = await getOptions(['access', 'refresh']);
+    const { access, refresh } = options;
 
     if (access != null && refresh != null) {
-      const verify = await verifyToken(access.access);
-      console.log('verify', verify);
+      const verify = await verifyToken(access);
 
-      if (Object.keys(verify).length === 0) {
-        emitter.emit('user:login', data);
-      } else {
-        const nAccess = await refreshToken(refresh);
-        saveOptions({ access: nAccess.access });
-        emitter.emit('user:login', {
-          access: nAccess.access,
-          refresh: data.refresh,
-        });
-        console.log('nAccess', nAccess);
+      switch (verify) {
+        case TOKEN_STATUS_VALID:
+          emitter.emit('user:login', options);
+          break;
+        case TOKEN_STATUS_REFRESH: {
+          const { access: nAccess } = await refreshToken(refresh);
+          saveOptions({ access: nAccess });
+          emitter.emit('user:login', {
+            access: nAccess,
+            refresh,
+          });
+          break;
+        }
+        default:
+          emitter.emit('user:logout');
+          break;
       }
     } else {
       emitter.emit('user:logout');
