@@ -22,8 +22,8 @@
     "default_icon": "img/icon.svg",
     "default_popup": "popup.html"
   },
-  "options_ui": {
-    "page": "options.html"
+  "background": {
+    "scripts": ["background.js"]
   },
-  "permissions": ["activeTab", "storage", "https://ajax.googleapis.com/"]
+  "permissions": ["activeTab", "storage", "<all_urls>", "tabs"]
 }

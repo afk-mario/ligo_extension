@@ -2,27 +2,76 @@ import html from 'choo/html';
 import './variables.css';
 import './style.css';
 
-import { parseTags } from '../../lib/misc';
-import Header from '../../components/header';
-import Footer from '../../components/footer';
-import Message from '../../components/message';
+import {
+  removeOptions,
+  saveOptions,
+  formDataToObject,
+  parseTags,
+} from '~lib/misc';
+
+import Header from '~components/header';
+import Footer from '~components/footer';
+import Message from '~components/message';
 import Ligo from '../add';
+import Login from '~containers/login';
 
-export default function app(state, emit) {
-  function updateUrl(e) {
-    emit('url:update', e.target.value);
+const App = (state, emit) => {
+  function logOut(e) {
+    e.preventDefault();
+    removeOptions(['access', 'refresh']);
+    emit('user:logout');
   }
 
-  function updateTags(e) {
-    emit('tags:update', e.target.value);
-  }
+  function handleLogin(e) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const body = JSON.stringify(formDataToObject(data));
 
-  function submit() {
-    const { url, tags, token } = state;
-    const tokenHeader = `Token ${token}`;
     const headers = new Headers({
       'Content-Type': 'application/json',
-      Authorization: tokenHeader,
+    });
+
+    const request = new Request('https://api.ellugar.co/token/', {
+      method: 'POST',
+      redirect: 'follow',
+      mode: 'cors',
+      headers,
+      body,
+    });
+
+    emit('message:update', 'login...');
+    fetch(request)
+      .then(res => {
+        return res.json();
+      })
+      .then(({ access, refresh }) => {
+        saveOptions({ access, refresh }).then(() => {
+          emit('message:clear');
+          emit('user:login', { refresh, access });
+        });
+      });
+  }
+
+  function handleAdd(e) {
+    const { user } = state;
+
+    e.preventDefault();
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const parsed = formDataToObject(data);
+    console.log('parsed', parsed);
+    const tags = parseTags(parsed.tags);
+    const body = JSON.stringify({
+      ...parsed,
+      tags,
+    });
+
+    console.log('Add Link', user.access);
+
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${user.access}`,
     });
 
     const request = new Request('https://api.ellugar.co/ligoj/link/', {
@@ -30,10 +79,7 @@ export default function app(state, emit) {
       redirect: 'follow',
       mode: 'cors',
       headers,
-      body: JSON.stringify({
-        link: url,
-        tags: parseTags(tags),
-      }),
+      body,
     });
 
     emit('message:update', 'sending...');
@@ -43,16 +89,18 @@ export default function app(state, emit) {
     });
   }
 
-  const { url, tags, message } = state;
+  const { user, message, tabUrl } = state;
+  const { loggedIn } = user;
 
-  const messageBlank = typeof message === 'undefined' || !message;
-  const content = messageBlank
-    ? Ligo({ url, tags, updateUrl, updateTags, submit })
-    : Message(message);
+  const Msg = message != null ? Message(message) : null;
+  const Body = loggedIn ? Ligo(tabUrl, handleAdd) : Login(handleLogin);
+  const Content = Msg || Body;
 
   return html`
     <body>
-      ${Header()} ${content} ${Footer()}
+      ${Header({ logOut, loggedIn })} ${Content} ${Footer()}
     </body>
   `;
-}
+};
+
+export default App;

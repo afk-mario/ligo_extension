@@ -1,7 +1,12 @@
 module.exports = {
   extends: ['airbnb', 'prettier'],
+  env: {
+    browser: true,
+    webextensions: true,
+  },
   rules: {
     'no-console': 0,
+    'no-param-reassign': 0,
   },
   globals: {
     browser: true,

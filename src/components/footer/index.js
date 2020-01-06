@@ -1,20 +1,20 @@
 import html from 'choo/html';
+import github from '~components/github';
 
-import ellugar from '~components/ellugar';
 import './style.css';
 
-export default () => html`
+const Footer = () => html`
   <footer id="footer">
     <div class="wrapper">
-      <h1>busca</h1>
       <a
-        class="ellugar"
-        href="https://ellugar.co/ligo"
+        href="https://github.com/afk-mario/ligo_extension"
         target="_blank"
         rel="noopener"
       >
-        ${ellugar()}
+        ${github()}
       </a>
     </div>
   </footer>
 `;
+
+export default Footer;

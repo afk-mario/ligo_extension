@@ -2,26 +2,10 @@ import html from 'choo/html';
 
 import './style.css';
 
-export default ({ url, tags, updateUrl, updateTags, submit }) => html`
-  <section class="submit">
-    <div class="wrapper">
-      <div class="form">
-        <input id="url"
-          placeholder="url"
-          type="url"
-          value="${url}"
-          oninput=${updateUrl}
-          />
-         <input id="tags"
-          placeholder="tags"
-          type="text"
-          value="${tags}"
-          oninput=${updateTags}
-          />
-        <div class="button blue" onclick=${submit}>
-          <span>save</span>
-        </div>
-      </div>
-    </div>
-  </section>
+export default (link, onSubmit) => html`
+  <form id="add" onsubmit=${onSubmit}>
+    <input name="link" placeholder="url" type="url" value=${link} required />
+    <input name="tags" placeholder="tags" type="text" />
+    <input class="button blue" type="submit" value="Save" />
+  </form>
 `;

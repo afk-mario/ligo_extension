@@ -1,16 +1,10 @@
 #footer {
   color: var(--white);
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
 
-  height: var(--footer-height);
   background: var(--dark-gray);
   border-top: 2px solid var(--medium-gray);
   padding: var(--half-margin);
-
-  max-width: var(--popup-width);
+  margin-top: var(--half-margin);
 
   display: flex;
   flex-flow: row;
@@ -36,7 +30,7 @@
 }
 
 #footer svg {
-  width: 100%;
-  height: auto;
+  width: auto;
+  height: 20px;
   display: block;
 }

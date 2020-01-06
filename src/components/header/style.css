@@ -8,5 +8,27 @@
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+}
+
+#header a {
+  text-decoration: none;
+  color: currentcolor;
+  transition: color 0.2s ease;
+  width: 20px;
+  margin-right: var(--half-margin);
+}
+
+#header a:first-child {
+  margin-right: auto;
+}
+
+#header a:hover {
+  color: var(--light-blue);
+}
+
+#header svg {
+  width: auto;
+  height: 20px;
+  display: block;
 }
