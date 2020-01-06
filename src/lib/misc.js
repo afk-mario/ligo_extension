@@ -1,8 +1,3 @@
-// /* eslint-disable */
-// const browser = browser || null;
-// const chrome = chrome || null;
-// /* eslint-enable */
-
 import {
   TOKEN_STATUS_VALID,
   TOKEN_STATUS_REFRESH,
@@ -24,7 +19,7 @@ export function getCurrentTabUrl(callback) {
     currentWindow: true,
   };
 
-  if (chrome == null) {
+  if (typeof chrome === 'undefined') {
     callback('');
   } else {
     chrome.tabs.query(queryInfo, tabs => {
@@ -45,12 +40,11 @@ export function formDataToObject(data) {
 }
 
 export function getOptions(arr) {
-  if (browser == null) {
+  if (typeof browser === 'undefined') {
     return new Promise(resolve => {
-      const result = [];
-      arr.forEach(e => {
-        result.push(localStorage.getItem(e));
-      });
+      const result = arr.reduce((acc, e) => {
+        return { ...acc, [e]: localStorage.getItem(e) };
+      }, {});
       resolve(result);
     });
   }
@@ -59,7 +53,7 @@ export function getOptions(arr) {
 }
 
 export function saveOptions(data) {
-  if (browser == null) {
+  if (typeof browser === 'undefined') {
     return new Promise(resolve => {
       Object.entries(data).forEach(([key, value]) => {
         localStorage.setItem(key, value);
@@ -72,7 +66,7 @@ export function saveOptions(data) {
 }
 
 export function removeOptions(arr) {
-  if (browser == null) {
+  if (typeof browser === 'undefined') {
     arr.forEach(e => {
       localStorage.removeItem(e);
     });
@@ -115,6 +109,24 @@ export async function refreshToken(refresh) {
 
   const body = JSON.stringify({ refresh });
   const request = new Request(`${API_URL}/token/refresh/`, {
+    method: 'POST',
+    redirect: 'follow',
+    mode: 'cors',
+    headers,
+    body,
+  });
+
+  const res = await fetch(request);
+  return res.json();
+}
+
+export async function login(props) {
+  const body = JSON.stringify(props);
+  const headers = new Headers({
+    'Content-Type': 'application/json',
+  });
+
+  const request = new Request(`${API_URL}/token/`, {
     method: 'POST',
     redirect: 'follow',
     mode: 'cors',

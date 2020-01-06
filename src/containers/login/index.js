@@ -10,6 +10,7 @@ const Login = onSubmit => {
         placeholder="afk"
         type="text"
         required
+        autocomplete="off"
       />
       <input
         id="password"

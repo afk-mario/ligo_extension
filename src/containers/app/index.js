@@ -4,6 +4,7 @@ import './variables.css';
 import './style.css';
 
 import {
+  login,
   removeOptions,
   saveOptions,
   formDataToObject,
@@ -23,38 +24,26 @@ const App = (state, emit) => {
     emit('user:logout');
   }
 
-  function handleLogin(e) {
+  async function handleLogin(e) {
     e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
-    const body = JSON.stringify(formDataToObject(data));
-
-    const headers = new Headers({
-      'Content-Type': 'application/json',
-    });
-
-    const request = new Request(`${API_URL}/token/`, {
-      method: 'POST',
-      redirect: 'follow',
-      mode: 'cors',
-      headers,
-      body,
-    });
+    const body = formDataToObject(data);
 
     emit('message:update', 'login...');
-    fetch(request)
-      .then(res => {
-        return res.json();
-      })
-      .then(({ access, refresh }) => {
-        saveOptions({ access, refresh }).then(() => {
-          emit('message:clear');
-          emit('user:login', { refresh, access });
-        });
-      });
+
+    try {
+      const res = await login(body);
+      const { access, refresh } = res;
+      await saveOptions({ access, refresh });
+      emit('message:clear');
+      emit('user:login', { refresh, access });
+    } catch (err) {
+      console.error(err);
+    }
   }
 
-  function handleAdd(e) {
+  async function handleAdd(e) {
     const { user } = state;
 
     e.preventDefault();
@@ -82,9 +71,15 @@ const App = (state, emit) => {
 
     emit('message:update', 'sending...');
 
-    fetch(request).then(res => {
+    try {
+      const res = await fetch(request);
       emit('message:update', `${res.status} - ${res.statusText}`);
-    });
+      setTimeout(() => {
+        emit('message:clear');
+      }, 3000);
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   const { user, message, tabUrl } = state;
