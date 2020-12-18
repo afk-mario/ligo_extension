@@ -5,6 +5,13 @@ import {
   API_URL,
 } from 'lib/constants';
 
+export function handleErrors(response) {
+  if (!response.ok) {
+    throw Error(response.statusText);
+  }
+  return response;
+}
+
 export function parseTags(_tags) {
   if (_tags == null) return [];
   const tags = _tags.split(',').filter(Boolean);
@@ -92,7 +99,7 @@ export async function verifyToken(token) {
     body,
   });
 
-  const res = await fetch(request);
+  const res = await fetch(request).then(handleErrors);
   const verify = await res.json();
   if (Object.keys(verify).length === 0) return TOKEN_STATUS_VALID;
   if (
@@ -135,8 +142,7 @@ export async function login(props) {
     body,
   });
 
-  const res = await fetch(request);
-  return res.json();
+  return fetch(request).then(handleErrors);
 }
 
 export async function restoreOptions(emitter) {
@@ -144,7 +150,7 @@ export async function restoreOptions(emitter) {
     const options = await getOptions(['access', 'refresh']);
     const { access, refresh } = options;
 
-    if (access != null && refresh != null) {
+    try {
       const verify = await verifyToken(access);
       emitter.emit('message:clear');
 
@@ -162,10 +168,9 @@ export async function restoreOptions(emitter) {
           break;
         }
         default:
-          emitter.emit('user:logout');
-          break;
+          throw new Error('Token invalid');
       }
-    } else {
+    } catch (e) {
       emitter.emit('user:logout');
     }
   } catch (err) {

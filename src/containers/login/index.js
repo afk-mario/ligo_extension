@@ -14,11 +14,16 @@ async function handleLogin(e, emit) {
 
   try {
     const res = await login(body);
-    const { access, refresh } = res;
+    const json = await res.json();
+    const { access, refresh } = json;
     await saveOptions({ access, refresh });
     emit('message:clear');
     emit('user:login', { refresh, access });
   } catch (err) {
+    emit('message:update', err.message);
+    setTimeout(() => {
+      emit('message:clear');
+    }, 3000);
     console.error(err);
   }
 }

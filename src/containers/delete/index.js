@@ -5,13 +5,16 @@ import { deleteLink } from 'lib/misc';
 import './style.css';
 
 async function handleDelete({ emit, id, token }) {
+  emit('message:update', '...');
   await deleteLink(id, token);
+  emit('message:clear');
   emit('ligo:refresh');
 }
 
 export default ({ emit, state }) => {
   const { ligo, user } = state;
   const { access: token } = user;
+  if (ligo.length < 1) return null;
   return html`
     <div id="delete" class="delete">
       ${ligo.map(
@@ -33,7 +36,7 @@ export default ({ emit, state }) => {
               </ul>
               <button
                 class="button -s"
-                onClick="${() => handleDelete({ emit, id, token })}"
+                onclick=${() => handleDelete({ emit, id, token })}
               >
                 Delete
               </button>

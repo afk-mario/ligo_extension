@@ -38,7 +38,7 @@ async function handleAdd(e, emit, state) {
     emit('message:update', `[${res.status}] ${res.statusText}`);
     setTimeout(() => {
       emit('message:clear');
-    }, 3000);
+    }, 2000);
   } catch (err) {
     console.error(err);
   }
