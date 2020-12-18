@@ -1,29 +1,30 @@
 #header {
+  width: 100%;
   background: var(--bg);
   border-bottom: 2px solid var(--bg-alt);
-  padding: var(--margin-01);
+  padding: var(--margin-01) var(--margin-02);
 }
 
 #header .wrapper {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
 }
 
-#header a {
-  text-decoration: none;
-  color: currentcolor;
-  transition: color 0.2s ease;
-  width: 20px;
+#header .wrapper .actions {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
 }
 
-#header a:first-child {
-  margin-right: auto;
+#header .wrapper .actions > *:not(:last-child) {
+  margin-right: var(--margin-01);
 }
 
-#header a:hover {
-  color: var(--hl-01);
+#header h1 {
+  line-height: 0.5em;
 }
 
 #header svg {

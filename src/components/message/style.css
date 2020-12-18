@@ -8,13 +8,19 @@
 }
 
 .message {
+  flex: 1 1 auto;
+  width: 100%;
   text-transform: uppercase;
   text-align: center;
-  padding: var(--margin-01);
+
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .message .wrapper {
   padding: var(--margin-01);
-  border: 4px solid var(--hl-01);
+  border: 2px solid var(--hl-01);
   animation: message 1s linear 1s infinite;
 }

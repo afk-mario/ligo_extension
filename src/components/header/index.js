@@ -40,8 +40,10 @@ const Header = ({ state, emit }) => {
         >
           <h1>ligo</h1>
         </a>
-        ${loggedIn ? ButtonIcon('publish', () => build(emit)) : null}
-        ${loggedIn ? ButtonIcon('logout', (e) => logOut(e, emit)) : ''}
+        <div className="actions">
+          ${loggedIn ? ButtonIcon('publish', () => build(emit)) : null}
+          ${loggedIn ? ButtonIcon('logout', (e) => logOut(e, emit)) : ''}
+        </div>
       </div>
     </header>
   `;

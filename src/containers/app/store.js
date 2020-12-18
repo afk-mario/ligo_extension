@@ -7,7 +7,7 @@ export default (state, emitter) => {
     loggedIn: false,
   };
 
-  state.message = null;
+  state.message = 'loading';
   state.tabUrl = null;
   state.ligo = [];
 

@@ -1,11 +1,11 @@
 {
   "name": "ligo.afk",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "ligo Browser Extension",
   "main": "js/script.js",
   "scripts": {
-    "start": "web-ext run",
-    "start:dev": "webpack serve --watch --progress --mode=development",
+    "start": "webpack serve --watch --progress --mode=development",
+    "start:fox": "web-ext run",
     "start:macos": "web-ext run -p default --firefox=/Applications/FirefoxDeveloperEdition.app/Contents/MacOS/firefox-bin",
     "lint": "eslint 'src/**/*.js'",
     "lint:fix": "eslint --fix 'src/**/*.js'",

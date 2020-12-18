@@ -4,6 +4,8 @@
 
   font-size: 20px;
   border: none;
+
+  padding: 0;
 }
 
 .button.-icon:hover {

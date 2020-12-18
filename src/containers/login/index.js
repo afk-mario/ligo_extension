@@ -32,13 +32,11 @@ const Login = ({ emit }) => html`
       type="text"
       required
       autocomplete="off"
-      value="arlefreak"
     />
     <input
       id="password"
       name="password"
       type="password"
-      value="mytholog-ott-stinkpot-lemming-farrago"
       placeholder="***"
       required
     />

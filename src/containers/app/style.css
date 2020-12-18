@@ -6,13 +6,31 @@
 
 html,
 body {
+  width: 100%;
   min-width: var(--popup-width);
   background: var(--bg);
   color: var(--fg-02);
 }
 
+body {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+}
+
+main {
+  width: 100%;
+  flex: 1 1 auto;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--margin-01) var(--margin-02);
+}
+
 h1 {
-  font-size: 2em;
+  font-size: 1.5em;
   font-weight: bold;
   text-transform: uppercase;
   margin: 0;
@@ -20,9 +38,19 @@ h1 {
 }
 
 h2 {
-  font-size: 1em;
+  font-size: 1.25em;
   margin: 0;
   padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: currentcolor;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--hl-01);
 }
 
 .date {
@@ -33,8 +61,4 @@ h2 {
   margin: auto;
   width: var(--popup-width);
   width: 100%;
-}
-
-main {
-  padding-bottom: var(--footer-height);
 }

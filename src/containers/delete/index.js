@@ -2,8 +2,6 @@ import html from 'choo/html';
 
 import { deleteLink } from 'lib/misc';
 
-import ButtonIcon from 'components/button-icon';
-
 import './style.css';
 
 async function handleDelete({ emit, id, token }) {
@@ -17,17 +15,28 @@ export default ({ emit, state }) => {
   return html`
     <div id="delete" class="delete">
       ${ligo.map(
-        ({ id, link, tags, dateCreated }) => html`
+        ({ id, name, link, tags, dateCreated }) => html`
           <article class="ligo-row">
             <div className="content">
-              <span class="link">${link}</span>
+              <a
+                href="${link}"
+                class="link"
+                target="_blank"
+                rel="noopener noreferrer"
+                >${name}</a
+              >
               <span class="date">${dateCreated}</span>
             </div>
             <footer>
               <ul class="tags">
                 ${tags.map(({ tag }) => html`<li>${tag}</li>`)}
               </ul>
-              ${ButtonIcon('delete', () => handleDelete({ emit, id, token }))}
+              <button
+                class="button -s"
+                onClick="${() => handleDelete({ emit, id, token })}"
+              >
+                Delete
+              </button>
             </footer>
           </article>
         `

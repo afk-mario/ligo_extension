@@ -8,7 +8,7 @@
   "manifest_version": 2,
   "name": "ligo.afk",
   "description": "ligo.afk extension",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "icons": {
     "16": "img/icon.svg",
     "19": "img/icon.svg",

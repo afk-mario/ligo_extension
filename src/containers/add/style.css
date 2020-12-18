@@ -5,13 +5,12 @@
 form,
 .form {
   display: flex;
-  padding: var(--margin-01);
   width: 100%;
   flex-flow: column nowrap;
 }
 
-form > *:not(:first-child) {
-  margin: var(--margin-01) 0 0 0;
+form > *:not(:last-child) {
+  margin-bottom: var(--margin-02);
 }
 
 label {
@@ -20,46 +19,7 @@ label {
   color: var(--hl-01);
 }
 
-button,
-.form .button,
-form .button {
-  padding: var(--margin-01);
-}
-
 .fieldset {
   border: none;
   padding: 0;
-}
-
-.button {
-  border: none;
-  margin: var(--margin-01) 0 0 0;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  text-shadow: none;
-  cursor: pointer;
-  text-transform: uppercase;
-
-  color: var(--fg-02);
-  text-shadow: var(--text-shadow);
-  background: transparent;
-}
-
-.button:not(.-icon) {
-  border: 1px solid var(--fg-01);
-}
-
-.button:focus {
-  outline: none;
-}
-
-.button:hover {
-  border-color: var(--hl-01);
 }

@@ -7,11 +7,14 @@ Extension to save links on the api.afk
 
 ## Develop
 
-Run Firefox with temporary profile
+Run webpack dev server (you can debug the general app first and then on the extension)
+
 `yarn start`
 
-Run webpack dev server (you can debug the general app first and then on the extension)
-`yarn start:dev`
+Run Firefox with temporary profile
+
+`yarn start:fox`
 
 Build production bundle
+
 `yarn build`

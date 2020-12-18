@@ -12,6 +12,7 @@ module.exports = {
     historyApiFallback: true,
     hot: true,
     open: true,
+    openPage: 'popup.html',
     writeToDisk: true,
   },
   entry: {

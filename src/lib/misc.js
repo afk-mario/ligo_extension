@@ -146,6 +146,7 @@ export async function restoreOptions(emitter) {
 
     if (access != null && refresh != null) {
       const verify = await verifyToken(access);
+      emitter.emit('message:clear');
 
       switch (verify) {
         case TOKEN_STATUS_VALID:
