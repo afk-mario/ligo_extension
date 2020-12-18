@@ -1,10 +1,10 @@
 #footer {
-  color: var(--white);
+  color: var(--fg-02);
 
-  background: var(--dark-gray);
-  border-top: 2px solid var(--medium-gray);
-  padding: var(--half-margin);
-  margin-top: var(--half-margin);
+  background: var(--bg);
+  border-top: 2px solid var(--bg-alt);
+  padding: var(--margin-01);
+  margin-top: var(--margin-01);
 
   display: flex;
   flex-flow: row;
@@ -26,7 +26,7 @@
 }
 
 #footer a:hover {
-  color: var(--light-blue);
+  color: var(--hl-01);
 }
 
 #footer svg {

@@ -1,7 +1,7 @@
 #header {
-  background: var(--dark-gray);
-  border-bottom: 2px solid var(--medium-gray);
-  padding: var(--half-margin);
+  background: var(--bg);
+  border-bottom: 2px solid var(--bg-alt);
+  padding: var(--margin-01);
 }
 
 #header .wrapper {
@@ -23,7 +23,7 @@
 }
 
 #header a:hover {
-  color: var(--light-blue);
+  color: var(--hl-01);
 }
 
 #header svg {

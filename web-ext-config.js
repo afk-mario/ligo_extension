@@ -9,7 +9,7 @@ module.exports = {
     browserConsole: true,
     startUrl: [
       'about:debugging',
-      'https://www.youtube.com/watch?v=C4Uc-cztsJo',
+      'https://melanie-richards.com/blog/css-grid-sticky',
     ],
   },
 };

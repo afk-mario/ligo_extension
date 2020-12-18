@@ -3,7 +3,7 @@ import {
   TOKEN_STATUS_REFRESH,
   TOKEN_STATUS_INVALID,
   API_URL,
-} from '~lib/constants';
+} from 'lib/constants';
 
 export function parseTags(_tags) {
   if (_tags == null) return [];
@@ -22,7 +22,7 @@ export function getCurrentTabUrl(callback) {
   if (typeof chrome === 'undefined') {
     callback('');
   } else {
-    chrome.tabs.query(queryInfo, tabs => {
+    chrome.tabs.query(queryInfo, (tabs) => {
       const tab = tabs[0];
       const { url } = tab;
       // console.assert(typeof url == 'string', 'tab.url should be a string');
@@ -41,10 +41,11 @@ export function formDataToObject(data) {
 
 export function getOptions(arr) {
   if (typeof browser === 'undefined') {
-    return new Promise(resolve => {
-      const result = arr.reduce((acc, e) => {
-        return { ...acc, [e]: localStorage.getItem(e) };
-      }, {});
+    return new Promise((resolve) => {
+      const result = arr.reduce(
+        (acc, e) => ({ ...acc, [e]: localStorage.getItem(e) }),
+        {}
+      );
       resolve(result);
     });
   }
@@ -54,7 +55,7 @@ export function getOptions(arr) {
 
 export function saveOptions(data) {
   if (typeof browser === 'undefined') {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       Object.entries(data).forEach(([key, value]) => {
         localStorage.setItem(key, value);
       });
@@ -67,11 +68,11 @@ export function saveOptions(data) {
 
 export function removeOptions(arr) {
   if (typeof browser === 'undefined') {
-    arr.forEach(e => {
+    arr.forEach((e) => {
       localStorage.removeItem(e);
     });
   } else {
-    arr.forEach(e => {
+    arr.forEach((e) => {
       browser.storage.local.remove(e);
     });
   }
@@ -169,4 +170,34 @@ export async function restoreOptions(emitter) {
   } catch (err) {
     console.error(err);
   }
+}
+
+export async function getLigo(link) {
+  const url = `${API_URL}/ligoj/link/?link=${encodeURIComponent(link)}`;
+
+  const request = new Request(url, {
+    method: 'GET',
+    redirect: 'follow',
+    mode: 'cors',
+  });
+
+  const res = await fetch(request);
+  const json = await res.json();
+  return json;
+}
+
+export async function deleteLink(id, token) {
+  const url = `${API_URL}/ligoj/link/${id}`;
+  const headers = new Headers({
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${token}`,
+  });
+
+  const request = new Request(url, {
+    method: 'DELETE',
+    redirect: 'follow',
+    mode: 'cors',
+    headers,
+  });
+  return fetch(request);
 }

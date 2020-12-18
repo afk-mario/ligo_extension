@@ -1,4 +1,4 @@
-import { getCurrentTabUrl, restoreOptions } from '~lib/misc';
+import { getCurrentTabUrl, restoreOptions, getLigo } from 'lib/misc';
 
 export default (state, emitter) => {
   state.user = {
@@ -9,11 +9,18 @@ export default (state, emitter) => {
 
   state.message = null;
   state.tabUrl = null;
+  state.ligo = [];
 
   emitter.on('DOMContentLoaded', () => {
     restoreOptions(emitter);
-    getCurrentTabUrl(tabUrl => {
-      state.tabUrl = tabUrl;
+
+    emitter.on('ligo:refresh', async () => {
+      if (!state.tabUrl) {
+        state.ligo = [];
+      } else {
+        const res = await getLigo(state.tabUrl);
+        state.ligo = res;
+      }
       emitter.emit('render');
     });
 
@@ -37,8 +44,14 @@ export default (state, emitter) => {
       emitter.emit('render');
     });
 
-    emitter.on('message:update', message => {
+    emitter.on('message:update', (message) => {
       state.message = message;
+      emitter.emit('render');
+    });
+
+    getCurrentTabUrl((tabUrl) => {
+      state.tabUrl = tabUrl;
+      emitter.emit('ligo:refresh');
       emitter.emit('render');
     });
   });

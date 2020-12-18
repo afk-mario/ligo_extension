@@ -1,8 +1,20 @@
+@keyframes message {
+  0% {
+    border-color: var(--hl-01);
+  }
+  50% {
+    border-color: var(--hl-02);
+  }
+}
+
 .message {
-  padding: var(--margin);
+  text-transform: uppercase;
+  text-align: center;
+  padding: var(--margin-01);
 }
 
 .message .wrapper {
-  padding: var(--margin);
-  border: 2px solid var(--light-blue);
+  padding: var(--margin-01);
+  border: 4px solid var(--hl-01);
+  animation: message 1s linear 1s infinite;
 }

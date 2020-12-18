@@ -1,7 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Fira+Mono:400,500,700');
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
 
 :root {
-  --font: 'Fira Mono', monospace;
+  --font: 'Barlow', sans-serif;
+  --font-mono: 'Roboto Mono', sans-serif;
 
   /* sizes */
   --border-division: 2px;
@@ -12,31 +14,33 @@
 
   /* colors */
 
-  --white: #ffffff;
-  --black: #000000;
-  --dark-gray: #0c0c0d;
-  --medium-gray: #323234;
-  --light-gray: #b2b2b2;
-  --light-gray: #f2f2f2;
+  --bg: #fff;
+  --bg-alt: #eee;
+  --fg-01: #716c6c;
+  --fg-02: #000;
+  --hl-01: #fdd000;
+  --hl-02: #ec008c;
+  --border: var(--fg-02);
 
-  --dark-blue: #185869;
-  --light-blue: #98d1cf;
-  --blue: #0080ff;
-
-  --red: #c33126;
-  --green: #2ab38d;
-  --yellow: #f1b731;
-  --magenta: #7a7e9d;
+  --bg: #000;
+  --fg-02: #fff;
+  --bg-alt: #1d1f21;
+  --hl-01: #ec008c;
+  --hl-02: #fdd000;
+  --border: var(--bg-alt);
 
   /* margins */
 
-  --margin: 20px;
-  --half-margin: calc(var(--margin) * 0.5);
-  --double-margin: calc(var(--margin) * 2);
-
-  /* shadows */
-  --text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
-  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
-  --box-shadow-2: 0 7px 14px rgba(50, 50, 93, 0.1),
-    0 3px 6px rgba(0, 0, 0, 0.08);
+  --margin-q: calc(var(--margin-01) / 4);
+  --margin-h: calc(var(--margin-01) / 2);
+  --margin-01: 8px;
+  --margin-02: calc(var(--margin-01) * 2);
+  --margin-03: calc(var(--margin-01) * 3);
+  --margin-04: calc(var(--margin-01) * 4);
+  --margin-05: calc(var(--margin-01) * 5);
+  --margin-06: calc(var(--margin-01) * 6);
+  --margin-07: calc(var(--margin-01) * 7);
+  --margin-08: calc(var(--margin-01) * 8);
+  --margin-09: calc(var(--margin-01) * 9);
+  --margin-10: calc(var(--margin-01) * 10);
 }

@@ -2,7 +2,7 @@ import html from 'choo/html';
 import './style.css';
 
 export default (icon, onclick) => html`
-  <a class="material" onclick=${onclick}>
+  <button class="button -icon" onclick=${onclick}>
     <i class="material-icons">${icon}</i>
-  </a>
+  </button>
 `;

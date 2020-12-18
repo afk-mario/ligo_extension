@@ -1,6 +1,6 @@
 import html from 'choo/html';
-import github from '~components/github';
-import ellugar from '~components/ellugar';
+import github from 'components/github';
+import ellugar from 'components/ellugar';
 
 import './style.css';
 

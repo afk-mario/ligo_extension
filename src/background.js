@@ -1,5 +1,4 @@
-import { getCurrentTabUrl } from '~lib/misc';
-import { API_URL } from '~lib/constants';
+import { getCurrentTabUrl, getLigo } from 'lib/misc';
 
 function clearBadge() {
   browser.browserAction.setBadgeText({ text: '' });
@@ -11,38 +10,26 @@ function setBadge(n) {
   browser.browserAction.setBadgeTextColor({ color: '#98d1cf' });
 }
 
-function getLigoCount(link) {
-  const url = `${API_URL}/ligoj/link/?link=${encodeURIComponent(link)}`;
-
-  const request = new Request(url, {
-    method: 'GET',
-    redirect: 'follow',
-    mode: 'cors',
+function setBadgeCount(link) {
+  getLigo(link).then((res) => {
+    if (res.length < 1) {
+      clearBadge();
+    } else {
+      setBadge(res.length);
+    }
   });
-
-  fetch(request)
-    .then(res => {
-      return res.json();
-    })
-    .then(res => {
-      if (res.length < 1) {
-        clearBadge();
-      } else {
-        setBadge(res.length);
-      }
-    });
 }
 
 function handleActivated() {
   clearBadge();
-  getCurrentTabUrl(url => {
-    getLigoCount(url);
+  getCurrentTabUrl((url) => {
+    setBadgeCount(url);
   });
 }
 
 function handleUpdated(tabId, changeInfo) {
   if (changeInfo.url) {
-    getLigoCount(changeInfo.url);
+    setBadgeCount(changeInfo.url);
   }
 }
 

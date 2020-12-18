@@ -12,15 +12,16 @@ module.exports = {
     historyApiFallback: true,
     hot: true,
     open: true,
+    writeToDisk: true,
   },
   entry: {
     ligo: ['@babel/polyfill', './src/index.js'],
     background: ['@babel/polyfill', './src/background.js'],
   },
   output: {
-    filename: '[name].js',
     path: output,
-    sourceMapFilename: '[name].map',
+    filename: '[name].js',
+    sourceMapFilename: '[name].[contenthash].map',
   },
   module: {
     rules: [
@@ -53,24 +54,22 @@ module.exports = {
   },
 
   plugins: [
-    new CopyWebpackPlugin([
-      {
-        from: assets,
-        to: output,
-      },
-    ]),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: assets,
+          to: output,
+        },
+      ],
+    }),
     new CleanWebpackPlugin({
       cleanStaleWebpackAssets: false,
     }),
   ],
-
   resolve: {
-    modules: ['node_modules'],
-    alias: {
-      '~lib': path.resolve('./src/lib/'),
-      '~components': path.resolve('./src/components'),
-      '~containers': path.resolve('./src/containers'),
-      '~public': path.resolve('./src/public'),
-    },
+    modules: [
+      path.resolve(__dirname, 'src'),
+      path.resolve(__dirname, 'node_modules'),
+    ],
   },
 };

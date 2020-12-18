@@ -1,32 +1,32 @@
 * {
-  box-sizing: border-box;
   font-family: var(--font);
-  scrollbar-color: var(--medium-gray) var(--black);
+  scrollbar-color: var(--bg) var(--bg-alt);
   scrollbar-width: thin;
 }
 
 html,
 body {
   min-width: var(--popup-width);
-  margin: 0;
-  padding: 0;
-  background: var(--dark-gray);
-  color: var(--light-gray);
-  overflow-x: hidden;
+  background: var(--bg);
+  color: var(--fg-02);
 }
 
 h1 {
-  font-size: 1.5em;
-  font-weight: 100;
+  font-size: 2em;
+  font-weight: bold;
+  text-transform: uppercase;
   margin: 0;
   padding: 0;
 }
 
 h2 {
   font-size: 1em;
-  font-weight: 100;
   margin: 0;
   padding: 0;
+}
+
+.date {
+  font-family: var(--font-mono);
 }
 
 .wrapper {
