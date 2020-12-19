@@ -2,8 +2,6 @@ import html from 'choo/html';
 
 import { removeOptions } from 'lib/misc';
 
-import ButtonIcon from 'components/button-icon';
-
 import './style.css';
 
 function logOut(e, emit) {
@@ -41,8 +39,12 @@ const Header = ({ state, emit }) => {
           <h1>ligo</h1>
         </a>
         <div className="actions">
-          ${loggedIn ? ButtonIcon('publish', () => build(emit)) : null}
-          ${loggedIn ? ButtonIcon('logout', (e) => logOut(e, emit)) : ''}
+          <button class="button -s" onclick=${() => build(emit)}>
+            publish
+          </button>
+          <button class="button -s" onclick=${(e) => logOut(e, emit)}>
+            log out
+          </button>
         </div>
       </div>
     </header>

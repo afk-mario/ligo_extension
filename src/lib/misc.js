@@ -1,22 +1,9 @@
-import {
-  TOKEN_STATUS_VALID,
-  TOKEN_STATUS_REFRESH,
-  TOKEN_STATUS_INVALID,
-  API_URL,
-} from 'lib/constants';
+import { TOKEN_STATUS_VALID, TOKEN_STATUS_REFRESH } from 'lib/constants';
 
-export function handleErrors(response) {
-  if (!response.ok) {
-    throw Error(response.statusText);
-  }
-  return response;
-}
+import { refreshToken, verifyToken } from 'lib/api';
 
-export function parseTags(_tags) {
-  if (_tags == null) return [];
-  const tags = _tags.split(',').filter(Boolean);
-  tags.push('fromBrowser');
-  return tags;
+export function parseTags(tags = '') {
+  return ['fromBrowser', ...tags.split(',').filter(Boolean)];
 }
 
 export function getCurrentTabUrl(callback) {
@@ -85,66 +72,6 @@ export function removeOptions(arr) {
   }
 }
 
-export async function verifyToken(token) {
-  const headers = new Headers({
-    'Content-Type': 'application/json',
-  });
-
-  const body = JSON.stringify({ token });
-  const request = new Request(`${API_URL}/token/verify/`, {
-    method: 'POST',
-    redirect: 'follow',
-    mode: 'cors',
-    headers,
-    body,
-  });
-
-  const res = await fetch(request).then(handleErrors);
-  const verify = await res.json();
-  if (Object.keys(verify).length === 0) return TOKEN_STATUS_VALID;
-  if (
-    {}.hasOwnProperty.call(verify, 'code') &&
-    verify.code === 'token_not_valid'
-  )
-    return TOKEN_STATUS_REFRESH;
-  return TOKEN_STATUS_INVALID;
-}
-
-export async function refreshToken(refresh) {
-  const headers = new Headers({
-    'Content-Type': 'application/json',
-  });
-
-  const body = JSON.stringify({ refresh });
-  const request = new Request(`${API_URL}/token/refresh/`, {
-    method: 'POST',
-    redirect: 'follow',
-    mode: 'cors',
-    headers,
-    body,
-  });
-
-  const res = await fetch(request);
-  return res.json();
-}
-
-export async function login(props) {
-  const body = JSON.stringify(props);
-  const headers = new Headers({
-    'Content-Type': 'application/json',
-  });
-
-  const request = new Request(`${API_URL}/token/`, {
-    method: 'POST',
-    redirect: 'follow',
-    mode: 'cors',
-    headers,
-    body,
-  });
-
-  return fetch(request).then(handleErrors);
-}
-
 export async function restoreOptions(emitter) {
   try {
     const options = await getOptions(['access', 'refresh']);
@@ -176,34 +103,4 @@ export async function restoreOptions(emitter) {
   } catch (err) {
     console.error(err);
   }
-}
-
-export async function getLigo(link) {
-  const url = `${API_URL}/ligoj/link/?link=${encodeURIComponent(link)}`;
-
-  const request = new Request(url, {
-    method: 'GET',
-    redirect: 'follow',
-    mode: 'cors',
-  });
-
-  const res = await fetch(request);
-  const json = await res.json();
-  return json;
-}
-
-export async function deleteLink(id, token) {
-  const url = `${API_URL}/ligoj/link/${id}`;
-  const headers = new Headers({
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${token}`,
-  });
-
-  const request = new Request(url, {
-    method: 'DELETE',
-    redirect: 'follow',
-    mode: 'cors',
-    headers,
-  });
-  return fetch(request);
 }

@@ -1,4 +1,5 @@
-import { getCurrentTabUrl, getLigo } from 'lib/misc';
+import { getLigo } from 'lib/api';
+import { getCurrentTabUrl } from 'lib/misc';
 
 function clearBadge() {
   browser.browserAction.setBadgeText({ text: '' });
@@ -10,14 +11,14 @@ function setBadge(n) {
   browser.browserAction.setBadgeTextColor({ color: '#98d1cf' });
 }
 
-function setBadgeCount(link) {
-  getLigo(link).then((res) => {
-    if (res.length < 1) {
-      clearBadge();
-    } else {
-      setBadge(res.length);
-    }
-  });
+async function setBadgeCount(link) {
+  const res = await getLigo(link);
+  const data = await res.json();
+  if (data.length < 1) {
+    clearBadge();
+  } else {
+    setBadge(data.length);
+  }
 }
 
 function handleActivated() {

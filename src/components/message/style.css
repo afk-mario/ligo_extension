@@ -1,9 +1,9 @@
 @keyframes message {
   0% {
-    border-color: var(--hl-01);
+    color: var(--hl-01);
   }
   50% {
-    border-color: var(--hl-02);
+    color: var(--hl-02);
   }
 }
 
@@ -21,6 +21,7 @@
 
 .message .wrapper {
   padding: var(--margin-01);
-  border: 2px solid var(--hl-01);
+  border: 2px solid currentColor;
   animation: message 1s linear 1s infinite;
+  animation-direction: alternate-reverse;
 }

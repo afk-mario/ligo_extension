@@ -1,6 +1,7 @@
 import html from 'choo/html';
 
-import { login, saveOptions, formDataToObject } from 'lib/misc';
+import { login } from 'lib/api';
+import { saveOptions, formDataToObject } from 'lib/misc';
 
 import './style.css';
 
@@ -10,7 +11,7 @@ async function handleLogin(e, emit) {
   const data = new FormData(form);
   const body = formDataToObject(data);
 
-  emit('message:update', 'login...');
+  emit('message:update', 'loading');
 
   try {
     const res = await login(body);
@@ -45,7 +46,7 @@ const Login = ({ emit }) => html`
       placeholder="***"
       required
     />
-    <input class="button blue" type="submit" value="Login" />
+    <button class="button blue" type="submit">enter</button>
   </form>
 `;
 

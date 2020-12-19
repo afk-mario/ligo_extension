@@ -1,6 +1,6 @@
 import html from 'choo/html';
 
-import { deleteLink } from 'lib/misc';
+import { deleteLink } from 'lib/api';
 
 import './style.css';
 

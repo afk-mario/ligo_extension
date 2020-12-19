@@ -24,6 +24,9 @@ module.exports = {
     filename: '[name].js',
     sourceMapFilename: '[name].[contenthash].map',
   },
+  optimization: {
+    minimize: false,
+  },
   module: {
     rules: [
       {

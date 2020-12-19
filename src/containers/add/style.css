@@ -13,6 +13,10 @@ form > *:not(:last-child) {
   margin-bottom: var(--margin-02);
 }
 
+form .button {
+  /* margin-left: auto; */
+}
+
 label {
   margin: 0 0 var(--margin-01) 0;
   display: block;

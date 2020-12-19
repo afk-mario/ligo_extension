@@ -54,8 +54,9 @@
 .delete .tags li {
   border-radius: var(--margin-02);
   padding: 0 var(--margin-01);
-  background: var(--bg-alt);
+  border: 2px solid var(--fg-01);
   padding-bottom: var(--margin-q);
+  font-size: 0.75em;
 }
 
 .delete .tags li:not(:last-child) {

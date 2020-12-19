@@ -1,4 +1,5 @@
-import { getCurrentTabUrl, restoreOptions, getLigo } from 'lib/misc';
+import { getLigo } from 'lib/api';
+import { getCurrentTabUrl, restoreOptions } from 'lib/misc';
 
 export default (state, emitter) => {
   state.user = {
@@ -19,7 +20,8 @@ export default (state, emitter) => {
         state.ligo = [];
       } else {
         const res = await getLigo(state.tabUrl);
-        state.ligo = res;
+        const data = await res.json();
+        state.ligo = data;
       }
       emitter.emit('render');
     });

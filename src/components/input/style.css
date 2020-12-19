@@ -6,11 +6,15 @@ input {
   background: transparent;
   border: none;
   box-shadow: none;
-  color: var(--fg-01);
+  color: var(--fg-02);
   outline: none;
   border: none;
-  border-bottom: 2px solid var(--fg-01);
+  border-bottom: 2px solid var(--bg-alt);
   transition: all 0.2s ease;
+}
+
+input::placeholder {
+  color: var(--fg-01);
 }
 
 input[type='number']::-webkit-outer-spin-button,

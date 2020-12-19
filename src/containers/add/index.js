@@ -1,6 +1,6 @@
 import html from 'choo/html';
 
-import { API_URL } from 'lib/constants';
+import { saveLink } from 'lib/api';
 import { parseTags, formDataToObject } from 'lib/misc';
 
 import './style.css';
@@ -10,36 +10,24 @@ async function handleAdd(e, emit, state) {
 
   e.preventDefault();
   const form = e.currentTarget;
-  const data = new FormData(form);
-  const parsed = formDataToObject(data);
+  const formData = new FormData(form);
+  const parsed = formDataToObject(formData);
   const tags = parseTags(parsed.tags);
-  const body = JSON.stringify({
-    ...parsed,
-    tags,
-  });
-
-  const headers = new Headers({
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${user.access}`,
-  });
-
-  const request = new Request(`${API_URL}/ligoj/link/`, {
-    method: 'POST',
-    redirect: 'follow',
-    mode: 'cors',
-    headers,
-    body,
-  });
-
-  emit('message:update', 'sending...');
+  const values = { ...parsed, tags };
 
   try {
-    const res = await fetch(request);
+    emit('message:update', 'sending...');
+    const res = await saveLink(values, user.access);
     emit('message:update', `[${res.status}] ${res.statusText}`);
+    emit('ligo:refresh');
     setTimeout(() => {
       emit('message:clear');
     }, 2000);
   } catch (err) {
+    emit('message:update', err.message);
+    setTimeout(() => {
+      emit('message:clear');
+    }, 2000);
     console.error(err);
   }
 }

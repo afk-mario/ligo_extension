@@ -8,6 +8,7 @@ import Message from 'components/message';
 
 import 'components/input/style.css';
 import 'components/button/style.css';
+import 'components/button-icon/style.css';
 
 import './reset.css';
 import './variables.css';
