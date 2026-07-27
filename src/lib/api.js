@@ -24,16 +24,6 @@ function escapeFilterValue(value) {
   return String(value).replace(/\\/g, '\\\\').replace(/"/g, '\\"');
 }
 
-function slugify(input) {
-  return String(input)
-    .trim()
-    .toLowerCase()
-    .normalize('NFKD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-}
-
 /** Map PocketBase link records to the shape the UI already expects. */
 export function mapLinkRecord(record) {
   const expanded = (record.expand && record.expand.tags) || [];
@@ -74,57 +64,13 @@ export async function authRefresh(token) {
   return fetch(request).then(handleErrors);
 }
 
-async function findTagByName(name, token) {
-  const filter = encodeURIComponent(`name="${escapeFilterValue(name)}"`);
-  const url = `${API_URL}/api/collections/tags/records?filter=${filter}&perPage=1`;
-  const request = new Request(url, {
-    ...DEFAULT_CONFIG,
-    method: 'GET',
-    headers: authHeaders(token, false),
-  });
-  const res = await fetch(request).then(handleErrors);
-  const data = await res.json();
-  return (data.items && data.items[0]) || null;
-}
-
-async function createTag(name, token) {
-  const request = new Request(`${API_URL}/api/collections/tags/records`, {
-    ...DEFAULT_CONFIG,
-    method: 'POST',
-    headers: authHeaders(token),
-    body: JSON.stringify({ name }),
-  });
-  const res = await fetch(request).then(handleErrors);
-  return res.json();
-}
-
-async function resolveTagIds(tagNames, token) {
-  const ids = [];
-  for (const raw of tagNames) {
-    const name = slugify(raw);
-    if (!name) continue;
-    let tag = await findTagByName(name, token);
-    if (!tag) {
-      try {
-        tag = await createTag(name, token);
-      } catch (err) {
-        // Race / unique constraint — re-fetch
-        tag = await findTagByName(name, token);
-        if (!tag) throw err;
-      }
-    }
-    ids.push(tag.id);
-  }
-  return ids;
-}
-
+/** Create a link; tags are CSV/names — PocketBase resolve_link_tags hook expands them. */
 export async function saveLink(values, token) {
-  const { link, tags: tagNames = [], ...rest } = values;
-  const tagIds = await resolveTagIds(tagNames, token);
+  const { link, tags = '', ...rest } = values;
   const body = JSON.stringify({
     ...rest,
     url: link,
-    tags: tagIds,
+    tags,
     archive: false,
   });
 

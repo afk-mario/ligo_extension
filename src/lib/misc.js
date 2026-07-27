@@ -1,7 +1,9 @@
 import { authRefresh } from 'lib/api';
 
+/** Prepend fromBrowser; backend resolve_link_tags expands CSV names into IDs. */
 export function parseTags(tags = '') {
-  return ['fromBrowser', ...tags.split(',').filter(Boolean)];
+  const trimmed = String(tags).trim();
+  return trimmed ? `fromBrowser,${trimmed}` : 'fromBrowser';
 }
 
 export function getCurrentTabUrl(callback) {
