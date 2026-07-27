@@ -16,10 +16,10 @@ async function handleLogin(e, emit) {
   try {
     const res = await login(body);
     const json = await res.json();
-    const { access, refresh } = json;
-    await saveOptions({ access, refresh });
+    const { token } = json;
+    await saveOptions({ token });
     emit('message:clear');
-    emit('user:login', { refresh, access });
+    emit('user:login', { token });
   } catch (err) {
     emit('message:update', err.message);
     setTimeout(() => {
@@ -34,10 +34,10 @@ const Login = ({ emit }) => html`
     <input
       id="username"
       name="username"
-      placeholder="afk"
+      placeholder="email"
       type="text"
       required
-      autocomplete="off"
+      autocomplete="username"
     />
     <input
       id="password"
@@ -45,6 +45,7 @@ const Login = ({ emit }) => html`
       type="password"
       placeholder="***"
       required
+      autocomplete="current-password"
     />
     <button class="button blue" type="submit">enter</button>
   </form>

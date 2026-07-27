@@ -1,15 +1,17 @@
-import {
-  TOKEN_STATUS_VALID,
-  TOKEN_STATUS_REFRESH,
-  TOKEN_STATUS_INVALID,
-  API_URL,
-} from 'lib/constants';
+import { API_URL } from 'lib/constants';
 
 export const DEFAULT_CONFIG = {
   redirect: 'follow',
   mode: 'cors',
   credentials: 'omit',
 };
+
+function authHeaders(token, json = true) {
+  const headers = new Headers();
+  if (json) headers.set('Content-Type', 'application/json');
+  if (token) headers.set('Authorization', token);
+  return headers;
+}
 
 export function handleErrors(response) {
   if (!response.ok) {
@@ -18,101 +20,156 @@ export function handleErrors(response) {
   return response;
 }
 
-export async function verifyToken(token) {
-  const headers = new Headers({
-    'Content-Type': 'application/json',
-  });
+function escapeFilterValue(value) {
+  return String(value).replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+}
 
-  const body = JSON.stringify({ token });
-  const request = new Request(`${API_URL}/token/verify/`, {
+function slugify(input) {
+  return String(input)
+    .trim()
+    .toLowerCase()
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+/** Map PocketBase link records to the shape the UI already expects. */
+export function mapLinkRecord(record) {
+  const expanded = (record.expand && record.expand.tags) || [];
+  return {
+    id: record.id,
+    name: record.name,
+    link: record.url,
+    dateCreated: record.created,
+    tags: expanded.map((t) => ({ tag: t.name })),
+  };
+}
+
+export async function login({ username, password }) {
+  const body = JSON.stringify({
+    identity: username,
+    password,
+  });
+  const request = new Request(
+    `${API_URL}/api/collections/users/auth-with-password`,
+    {
+      ...DEFAULT_CONFIG,
+      method: 'POST',
+      headers: authHeaders(),
+      body,
+    }
+  );
+
+  return fetch(request).then(handleErrors);
+}
+
+export async function authRefresh(token) {
+  const request = new Request(`${API_URL}/api/collections/users/auth-refresh`, {
     ...DEFAULT_CONFIG,
     method: 'POST',
-    headers,
-    body,
+    headers: authHeaders(token),
   });
 
+  return fetch(request).then(handleErrors);
+}
+
+async function findTagByName(name, token) {
+  const filter = encodeURIComponent(`name="${escapeFilterValue(name)}"`);
+  const url = `${API_URL}/api/collections/tags/records?filter=${filter}&perPage=1`;
+  const request = new Request(url, {
+    ...DEFAULT_CONFIG,
+    method: 'GET',
+    headers: authHeaders(token, false),
+  });
   const res = await fetch(request).then(handleErrors);
-  const verify = await res.json();
-  if (Object.keys(verify).length === 0) return TOKEN_STATUS_VALID;
-  if (
-    {}.hasOwnProperty.call(verify, 'code') &&
-    verify.code === 'token_not_valid'
-  )
-    return TOKEN_STATUS_REFRESH;
-  return TOKEN_STATUS_INVALID;
+  const data = await res.json();
+  return (data.items && data.items[0]) || null;
 }
 
-export async function refreshToken(refresh) {
-  const headers = new Headers({
-    'Content-Type': 'application/json',
-  });
-
-  const body = JSON.stringify({ refresh });
-  const request = new Request(`${API_URL}/token/refresh/`, {
+async function createTag(name, token) {
+  const request = new Request(`${API_URL}/api/collections/tags/records`, {
     ...DEFAULT_CONFIG,
     method: 'POST',
-    headers,
-    body,
+    headers: authHeaders(token),
+    body: JSON.stringify({ name }),
   });
-
-  return fetch(request).then(handleErrors);
+  const res = await fetch(request).then(handleErrors);
+  return res.json();
 }
 
-export async function login(props) {
-  const body = JSON.stringify(props);
-  const headers = new Headers({
-    'Content-Type': 'application/json',
-  });
-
-  const request = new Request(`${API_URL}/token/`, {
-    ...DEFAULT_CONFIG,
-    method: 'POST',
-    headers,
-    body,
-  });
-
-  return fetch(request).then(handleErrors);
+async function resolveTagIds(tagNames, token) {
+  const ids = [];
+  for (const raw of tagNames) {
+    const name = slugify(raw);
+    if (!name) continue;
+    let tag = await findTagByName(name, token);
+    if (!tag) {
+      try {
+        tag = await createTag(name, token);
+      } catch (err) {
+        // Race / unique constraint — re-fetch
+        tag = await findTagByName(name, token);
+        if (!tag) throw err;
+      }
+    }
+    ids.push(tag.id);
+  }
+  return ids;
 }
 
 export async function saveLink(values, token) {
-  const body = JSON.stringify(values);
-  const headers = new Headers({
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${token}`,
+  const { link, tags: tagNames = [], ...rest } = values;
+  const tagIds = await resolveTagIds(tagNames, token);
+  const body = JSON.stringify({
+    ...rest,
+    url: link,
+    tags: tagIds,
+    archive: false,
   });
 
-  const request = new Request(`${API_URL}/ligoj/link/`, {
+  const request = new Request(`${API_URL}/api/collections/links/records`, {
     ...DEFAULT_CONFIG,
     method: 'POST',
-    headers,
+    headers: authHeaders(token),
     body,
   });
 
   return fetch(request).then(handleErrors);
 }
 
-export async function getLigo(link) {
-  const url = `${API_URL}/ligoj/link/?link=${encodeURIComponent(link)}`;
+export async function getLigo(link, token) {
+  if (!token) {
+    return new Response(JSON.stringify([]), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  const filter = encodeURIComponent(`url="${escapeFilterValue(link)}"`);
+  const url = `${API_URL}/api/collections/links/records?filter=${filter}&expand=tags&perPage=50`;
 
   const request = new Request(url, {
     ...DEFAULT_CONFIG,
     method: 'GET',
+    headers: authHeaders(token, false),
   });
 
-  return fetch(request).then(handleErrors);
+  const res = await fetch(request).then(handleErrors);
+  const data = await res.json();
+  const items = (data.items || []).map(mapLinkRecord);
+  return new Response(JSON.stringify(items), {
+    status: 200,
+    headers: { 'Content-Type': 'application/json' },
+  });
 }
 
 export async function deleteLink(id, token) {
-  const url = `${API_URL}/ligoj/link/${id}`;
-  const headers = new Headers({
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${token}`,
-  });
-
+  const url = `${API_URL}/api/collections/links/records/${id}`;
   const request = new Request(url, {
     ...DEFAULT_CONFIG,
     method: 'DELETE',
-    headers,
+    headers: authHeaders(token),
   });
   return fetch(request);
 }

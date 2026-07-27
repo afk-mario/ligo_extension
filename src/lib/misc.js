@@ -1,6 +1,4 @@
-import { TOKEN_STATUS_VALID, TOKEN_STATUS_REFRESH } from 'lib/constants';
-
-import { refreshToken, verifyToken } from 'lib/api';
+import { authRefresh } from 'lib/api';
 
 export function parseTags(tags = '') {
   return ['fromBrowser', ...tags.split(',').filter(Boolean)];
@@ -19,7 +17,6 @@ export function getCurrentTabUrl(callback) {
     chrome.tabs.query(queryInfo, (tabs) => {
       const tab = tabs[0];
       const { url } = tab;
-      // console.assert(typeof url == 'string', 'tab.url should be a string');
       callback(url);
     });
   }
@@ -74,30 +71,23 @@ export function removeOptions(arr) {
 
 export async function restoreOptions(emitter) {
   try {
-    const options = await getOptions(['access', 'refresh']);
-    const { access, refresh } = options;
+    const options = await getOptions(['token']);
+    const { token } = options;
+
+    if (!token) {
+      emitter.emit('user:logout');
+      return;
+    }
 
     try {
-      const verify = await verifyToken(access);
+      const res = await authRefresh(token);
+      const json = await res.json();
+      const nextToken = json.token;
+      await saveOptions({ token: nextToken });
       emitter.emit('message:clear');
-
-      switch (verify) {
-        case TOKEN_STATUS_VALID:
-          emitter.emit('user:login', options);
-          break;
-        case TOKEN_STATUS_REFRESH: {
-          const { access: nAccess } = await refreshToken(refresh);
-          saveOptions({ access: nAccess });
-          emitter.emit('user:login', {
-            access: nAccess,
-            refresh,
-          });
-          break;
-        }
-        default:
-          throw new Error('Token invalid');
-      }
+      emitter.emit('user:login', { token: nextToken });
     } catch (e) {
+      await removeOptions(['token']);
       emitter.emit('user:logout');
     }
   } catch (err) {

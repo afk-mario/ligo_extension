@@ -17,7 +17,7 @@ async function handleAdd(e, emit, state) {
 
   try {
     emit('message:update', 'sending...');
-    const res = await saveLink(values, user.access);
+    const res = await saveLink(values, user.token);
     emit('message:update', `[${res.status}] ${res.statusText}`);
     emit('ligo:refresh');
     setTimeout(() => {

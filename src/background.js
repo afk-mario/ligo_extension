@@ -11,13 +11,28 @@ function setBadge(n) {
   browser.browserAction.setBadgeTextColor({ color: '#98d1cf' });
 }
 
+async function getToken() {
+  const { token } = await browser.storage.local.get(['token']);
+  return token || null;
+}
+
 async function setBadgeCount(link) {
-  const res = await getLigo(link);
-  const data = await res.json();
-  if (data.length < 1) {
+  try {
+    const token = await getToken();
+    if (!token || !link) {
+      clearBadge();
+      return;
+    }
+    const res = await getLigo(link, token);
+    const data = await res.json();
+    if (data.length < 1) {
+      clearBadge();
+    } else {
+      setBadge(data.length);
+    }
+  } catch (err) {
     clearBadge();
-  } else {
-    setBadge(data.length);
+    console.error(err);
   }
 }
 
@@ -37,3 +52,9 @@ function handleUpdated(tabId, changeInfo) {
 handleActivated();
 browser.tabs.onActivated.addListener(handleActivated);
 browser.tabs.onUpdated.addListener(handleUpdated);
+
+browser.storage.onChanged.addListener((changes, area) => {
+  if (area === 'local' && changes.token) {
+    handleActivated();
+  }
+});

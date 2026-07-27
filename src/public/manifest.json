@@ -25,5 +25,11 @@
   "background": {
     "scripts": ["background.js"]
   },
-  "permissions": ["activeTab", "storage", "<all_urls>", "tabs"]
+  "permissions": [
+    "activeTab",
+    "storage",
+    "<all_urls>",
+    "tabs",
+    "https://ligo.medio.maryfer.house/*"
+  ]
 }

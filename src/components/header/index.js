@@ -6,7 +6,7 @@ import './style.css';
 
 function logOut(e, emit) {
   e.preventDefault();
-  removeOptions(['access', 'refresh']);
+  removeOptions(['token']);
   emit('user:logout');
 }
 

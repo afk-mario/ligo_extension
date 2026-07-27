@@ -23,8 +23,16 @@ module.exports = {
   },
   settings: {
     'import/resolver': {
-      webpack: {
-        config: 'webpack.config.js',
+      alias: {
+        map: [
+          ['lib', './src/lib'],
+          ['containers', './src/containers'],
+          ['components', './src/components'],
+        ],
+        extensions: ['.js', '.json'],
+      },
+      node: {
+        extensions: ['.js', '.json'],
       },
     },
   },
@@ -36,7 +44,7 @@ module.exports = {
       },
     },
     {
-      files: ['webpack.*', '.*'],
+      files: ['scripts/**', '.*'],
       rules: {
         'no-underscore-dangle': 'off',
         'filenames/match-regex': 'off',

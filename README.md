@@ -7,11 +7,13 @@ Extension to save links on the api.afk
 
 ## Develop
 
-Run webpack dev server (you can debug the general app first and then on the extension)
+Watch-build into `dist/` and open a local preview of the popup
 
 `yarn start`
 
-Run Firefox with temporary profile
+Opens [http://127.0.0.1:8080/popup.html](http://127.0.0.1:8080/popup.html) (browser APIs like `tabs`/`storage` are unavailable in this preview — use Firefox for full extension behavior).
+
+Run Firefox with temporary profile (loads `dist/`)
 
 `yarn start:fox`
 

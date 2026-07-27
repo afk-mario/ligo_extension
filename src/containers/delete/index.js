@@ -13,7 +13,7 @@ async function handleDelete({ emit, id, token }) {
 
 export default ({ emit, state }) => {
   const { ligo, user } = state;
-  const { access: token } = user;
+  const { token } = user;
   if (ligo.length < 1) return null;
   return html`
     <div id="delete" class="delete">
