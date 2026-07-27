@@ -18,7 +18,6 @@
   "repository": "git+https://github.com/Arlefreak/ligo_extension.git",
   "keywords": [
     "extension",
-    "arlefreak",
     "afk",
     "ligo",
     "link"
@@ -26,9 +25,9 @@
   "author": "AFK",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Arlefreak/ligo_extension/issues"
+    "url": "https://github.com/afk-mario/ligo_extension/issues"
   },
-  "homepage": "https://github.com/Arlefreak/ligo_extension#readme",
+  "homepage": "https://github.com/afk-mario/ligo_extension",
   "lint-staged": {
     "src/**/*.{js,json,css}": [
       "prettier --single-quote --trailing-comma es5 --write",
