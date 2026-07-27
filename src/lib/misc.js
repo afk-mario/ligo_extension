@@ -86,7 +86,7 @@ export async function restoreOptions(emitter) {
       await saveOptions({ token: nextToken });
       emitter.emit('message:clear');
       emitter.emit('user:login', { token: nextToken });
-    } catch (e) {
+    } catch {
       await removeOptions(['token']);
       emitter.emit('user:logout');
     }

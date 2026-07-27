@@ -2,16 +2,17 @@
   "name": "ligo.afk",
   "version": "5.1.0",
   "description": "ligo Browser Extension",
+  "type": "module",
   "main": "js/script.js",
   "scripts": {
-    "start": "node scripts/build.mjs --watch",
+    "start": "node scripts/build.js --watch",
     "start:fox": "web-ext run",
     "start:macos": "web-ext run -p default --firefox=/Applications/FirefoxDeveloperEdition.app/Contents/MacOS/firefox-bin",
     "lint": "eslint 'src/**/*.js'",
     "lint:fix": "eslint --fix 'src/**/*.js'",
     "lint:format": "prettier --write 'src/**/*.js'",
     "test": "eslint 'src/**/*.js' && web-ext lint -s dist",
-    "build": "node scripts/build.mjs",
+    "build": "node scripts/build.js",
     "build:chrome": "crx pack dist -o build/ligo.crx && web-ext build -s dist -a build",
     "build:fox": "web-ext build -s dist --overwrite-dest"
   },
@@ -35,31 +36,38 @@
     ]
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "autoprefixer": "^10.4.20",
     "crx": "^5.0.1",
-    "esbuild": "^0.25.0",
-    "eslint": "^7.15.0",
-    "eslint-config-airbnb": "^18.2.1",
-    "eslint-config-prettier": "^7.0.0",
-    "eslint-import-resolver-alias": "^1.1.2",
-    "eslint-plugin-filenames": "^1.3.2",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-prettier": "^3.3.0",
-    "eslint-plugin-react": "^7.21.5",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "husky": "^4.3.6",
-    "lint-staged": "^10.5.3",
+    "esbuild": "^0.28.1",
+    "eslint": "^10.8.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-import-x": "^4.17.1",
+    "eslint-plugin-prettier": "^5.5.6",
+    "eslint-plugin-unicorn": "^72.0.0",
+    "globals": "^17.8.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.2.0",
     "postcss": "^8.4.49",
-    "prettier": "2.2.1",
-    "web-ext": "^5.4.1"
+    "prettier": "^3.9.6",
+    "web-ext": "^10.5.0"
   },
   "dependencies": {
     "choo": "^7.1.0"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
+  "webExt": {
+    "verbose": true,
+    "sourceDir": "dist",
+    "build": {
+      "overwriteDest": true
+    },
+    "run": {
+      "firefox": "firefox-developer-edition",
+      "browserConsole": true,
+      "startUrl": [
+        "about:debugging",
+        "https://melanie-richards.com/blog/css-grid-sticky"
+      ]
     }
   }
 }
