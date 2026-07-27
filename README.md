@@ -3,7 +3,7 @@
 Extension to save links on the api.afk
 
 <p align="center">
-  <img src="https://github.com/afk-mario/ligo_extension/blob/master/src/img/512icon_dark.png" alt="Logo"/>
+  <img src="https://github.com/afk-mario/ligo_extension/blob/master/src/public/img/icon.svg" alt="Logo"/>
 </p>
 
 ## Develop
