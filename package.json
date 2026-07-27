@@ -14,7 +14,8 @@
     "test": "eslint 'src/**/*.js' && web-ext lint -s dist",
     "build": "node scripts/build.js",
     "build:chrome": "crx pack dist -o build/ligo.crx && web-ext build -s dist -a build",
-    "build:fox": "web-ext build -s dist --overwrite-dest"
+    "build:fox": "web-ext build -s dist --overwrite-dest",
+    "prepare": "husky"
   },
   "repository": "git+https://github.com/Arlefreak/ligo_extension.git",
   "keywords": [
