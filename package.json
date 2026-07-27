@@ -1,6 +1,6 @@
 {
   "name": "ligo.afk",
-  "version": "5.1.0",
+  "version": "5.1.1",
   "description": "ligo Browser Extension",
   "type": "module",
   "main": "js/script.js",
