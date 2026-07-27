@@ -17,7 +17,7 @@
     "build:fox": "web-ext build -s dist --overwrite-dest",
     "prepare": "husky"
   },
-  "repository": "git+https://github.com/Arlefreak/ligo_extension.git",
+  "repository": "git@github.com:afk-mario/ligo_extension.git",
   "keywords": [
     "extension",
     "afk",
@@ -26,9 +26,6 @@
   ],
   "author": "AFK",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/afk-mario/ligo_extension/issues"
-  },
   "homepage": "https://github.com/afk-mario/ligo_extension",
   "lint-staged": {
     "src/**/*.{js,json,css}": [
