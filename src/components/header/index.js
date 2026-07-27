@@ -24,6 +24,18 @@ async function build(emit) {
   }, 3000);
 }
 
+function Publish({ emit }) {
+  return html`<button class="button -s" onclick=${() => build(emit)}>
+    build site
+  </button>`;
+}
+
+function LogOutButton({ emit }) {
+  return html`<button class="button -s" onclick=${(e) => logOut(e, emit)}>
+    log out
+  </button>`;
+}
+
 const Header = ({ state, emit }) => {
   const { user } = state;
   const { loggedIn } = user;
@@ -39,12 +51,8 @@ const Header = ({ state, emit }) => {
           <h1>ligo</h1>
         </a>
         <div className="actions">
-          <button class="button -s" onclick=${() => build(emit)}>
-            publish
-          </button>
-          <button class="button -s" onclick=${(e) => logOut(e, emit)}>
-            log out
-          </button>
+          ${loggedIn ? Publish({ emit }) : null}
+          ${loggedIn ? LogOutButton({ emit }) : null}
         </div>
       </div>
     </header>
